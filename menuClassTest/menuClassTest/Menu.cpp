@@ -9,6 +9,10 @@ Menu::Menu(optionsVecPtr) {}
 Menu::~Menu() {
 }
 
+
+
+
+
 void Menu::displayMenu(string spaceBeforeMenu, string spaceBeforeMenuOption) {
   using std::cout;
   
@@ -33,6 +37,10 @@ void Menu::displayMenu(string spaceBeforeMenu, string spaceBeforeMenuOption) {
     (*optionsPtr.get()->at(choice).get()->menuFunction.get())();
   }
 }
+
+
+
+
 
 Menu::MenuFunctions::
 MenuFunctions(string description, functionPtr menuFunction) : 

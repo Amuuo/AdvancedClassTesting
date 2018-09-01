@@ -10,19 +10,22 @@ using std::shared_ptr;
 using std::function;
 using std::vector;
 using std::string;
-
-
+using std::cout;
+using std::make_shared;
 
 using optionsVec = vector<function<void()>>;
 using functionPtr = shared_ptr<function<void()>>;
+
+
+
+
 
 
 class Menu {
 
 public:  
   
-
-  struct MenuFunctions {
+  static struct MenuFunctions {
     
     MenuFunctions(string, functionPtr);
     
@@ -30,7 +33,8 @@ public:
     functionPtr menuFunction;
   };
   
-  using optionsVecPtr = shared_ptr<vector<shared_ptr<MenuFunctions>>>;
+  using menuFunctionsPtr = shared_ptr<MenuFunctions>;
+  using optionsVecPtr = shared_ptr<vector<menuFunctionsPtr>>;
   
   Menu();
   Menu(optionsVecPtr);
