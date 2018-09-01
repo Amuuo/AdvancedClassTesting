@@ -4,10 +4,15 @@
 
 Menu::Menu() {}
 
-Menu::Menu(optionsVecPtr) {}
+Menu::Menu(optionsVecPtr optionsPtr, 
+           string spaceBeforeMenu,
+           string spaceBeforeMenuOptions) : optionsPtr{move(optionsPtr)} {
 
-Menu::~Menu() {
+  displayMenu(spaceBeforeMenu, spaceBeforeMenuOptions);
 }
+
+
+Menu::~Menu() {}
 
 
 
