@@ -23,10 +23,12 @@ void Menu::displayMenu(string spaceBeforeMenu, string spaceBeforeMenuOption) {
   
   int i{1};
   
-  cout << spaceBeforeMenu;    
+  cout << spaceBeforeMenu;      
   for (auto option : *optionsPtr) {
-    cout << spaceBeforeMenuOption << i++ << " - " << option->description;
-  } cout << spaceBeforeMenuOption << i << " - Exit";
+    cout << spaceBeforeMenuOption 
+         << i++ << " - " << option.description << endl;
+  } 
+  cout << spaceBeforeMenuOption << i << " - Exit" << endl;
   
   
   // minus 1 for vector selection  
@@ -39,7 +41,7 @@ void Menu::displayMenu(string spaceBeforeMenu, string spaceBeforeMenuOption) {
     exit(1);
   } 
   else {
-    (*optionsPtr.get()->at(choice).get()->menuFunction.get())();
+    (*optionsPtr.get()->at(choice).menuFunction.get())();
   }
 }
 
@@ -47,6 +49,6 @@ void Menu::displayMenu(string spaceBeforeMenu, string spaceBeforeMenuOption) {
 
 
 
-Menu::MenuFunctions::
-MenuFunctions(string description, functionPtr menuFunction) : 
+Menu::MenuFunction::
+MenuFunction(string description, functionPtr menuFunction) : 
   description{description}, menuFunction{menuFunction} {}
