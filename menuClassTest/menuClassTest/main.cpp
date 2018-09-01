@@ -7,7 +7,7 @@
 using MenuFunction      = Menu::MenuFunction;
 using MenuFunctionsVec  = vector<MenuFunction>;
 
-
+shared_ptr<stack<Menu>> menuStackPtr;
 
 MenuFunctionsVec menuList{    
   {"run test 1", make_shared<function<void()>>([](){cout << "\n\n\ttest1!";})},    
@@ -16,16 +16,15 @@ MenuFunctionsVec menuList{
 
 
 void runMenu() {
-    
-  Menu mainMen {
-    make_unique<MenuFunctionsVec>(menuList),"\n\n","\t"
-  };
+  
+  Menu menu{ make_unique<MenuFunctionsVec>(menuList), "\n\n","\t" };
 
 }
 
 
 int main() {
 
+  
   runMenu();
   
   cout << "\n\n\n\t";  

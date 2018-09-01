@@ -1,10 +1,13 @@
 #pragma once
+
 #include<memory>
 #include<vector>
 #include<functional>
 #include<string>
 #include<iostream>
+#include<stack>
 #include"userIO.h"
+
 
 using std::shared_ptr;
 using std::function;
@@ -16,16 +19,19 @@ using std::make_unique;
 using std::unique_ptr;
 using std::move;
 using std::endl;
+using std::stack;
 
 
 
 
-class Menu {
+
+class Menu{
 
 public:  
   
   using functionPtr = shared_ptr<function<void()>>;
-  
+  //using menuStack_ptr = shared_ptr<stack<Menu>>;
+
   static struct MenuFunction {
     
     MenuFunction(string,functionPtr);
@@ -37,16 +43,16 @@ public:
   
   Menu();
   Menu(optionsVecPtr, string="", string="");
+  Menu(optionsVecPtr, shared_ptr<stack<Menu>>, string="", string="");    
+  ~Menu();  
   
-  
-  virtual ~Menu();  
-  virtual void displayMenu(string="",string="");
-  
+  void displayMenu(string="",string="");
+  //menuStack_ptr getMenuStackPtr();
 
 private:
   
+  //menuStack_ptr  menuStackPtr;
+  optionsVecPtr  optionsPtr;
   
-  optionsVecPtr optionsPtr;
-  optionsVecPtr previousMenuPtr;
 };
 
