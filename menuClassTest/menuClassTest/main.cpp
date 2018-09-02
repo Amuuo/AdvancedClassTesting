@@ -7,32 +7,40 @@
 using MenuFunction      = Menu::MenuFunction;
 using MenuFunctionsVec  = vector<MenuFunction>;
 
-shared_ptr<stack<Menu>> menuStackPtr;
+Test test1{"test 1"};
+Test test2{"test 2"};
 
-MenuFunctionsVec menuList{    
-  {"run test 1", make_shared<function<void()>>([](){cout << "\n\n\ttest1!";})},    
-  {"run test 2", make_shared<function<void()>>([](){cout << "\n\n\ttest2!";})}
+MenuFunctionsVec mainMenuOptionsList
+{     
+  {
+    "run test 1", 
+    make_shared<function<void()>>([]()
+    { 
+      test1.runMenu();
+    })
+  },    
+  
+  {
+    "run test 2", 
+    make_shared<function<void()>>([]()
+    { 
+      test2.runMenu();
+    })
+  }
 };
 
 
-void runMenu() {
+int main() 
+{
+
+  Menu menu{ make_unique<MenuFunctionsVec>(mainMenuOptionsList), "Main"};
   
-  Menu menu{ make_unique<MenuFunctionsVec>(menuList), "\n\n","\t" };
+  do 
+  {
+    system("clear");  
+  } 
+  while(menu.displayMenu());
+      
 
-}
-
-
-int main() {
-
-  
-  runMenu();
-  
-  cout << "\n\n\n\t";  
-  system("PAUSE");
-
-  Test test{};
-
-  cout << "\n\n\n\t";  
-  system("PAUSE");
   return 0;
 }

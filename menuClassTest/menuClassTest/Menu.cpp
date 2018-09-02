@@ -2,80 +2,99 @@
 
 
 
-Menu::Menu() {}
-
-
-Menu::Menu(optionsVecPtr optionsPtr,           
-           string spaceBeforeMenu,
-           string spaceBeforeMenuOptions) : optionsPtr{move(optionsPtr)}
-{                                              
-  //menuStackPtr->push(*this);
-  displayMenu(spaceBeforeMenu, spaceBeforeMenuOptions);
-}
-
-
-Menu::Menu(optionsVecPtr optionsPtr,
-           shared_ptr<stack<Menu>> menuStack_Ptr,
-           string spaceBeforeMenu,
-           string spaceBeforeMenuOptions) : optionsPtr{move(optionsPtr)}
-                                            //menuStackPtr{menuStack_Ptr} 
+Menu::
+Menu() 
 {
-  //menuStackPtr->push(*this);
-  displayMenu(spaceBeforeMenu, spaceBeforeMenuOptions);
 }
 
 
-Menu::~Menu() {
-  //menuStackPtr->pop();
+Menu::
+Menu(optionsVecPtr optionsPtr,           
+     string        title,
+     string        spaceBeforeMenu,
+     string        spaceBeforeMenuOptions) :
+  
+                    optionsPtr{move(optionsPtr)}, 
+                    title{title},
+                    spaceBeforeMenu{spaceBeforeMenu},
+                    spaceBeforeMenuOptions{spaceBeforeMenuOptions}
+{
+  transform(this->title.begin(), 
+            this->title.end(), 
+            this->title.begin(), 
+            ::toupper);
 }
 
 
-
-
-
-void Menu::displayMenu(string spaceBeforeMenu, string spaceBeforeMenuOption) {
-
-  int functionNum{0};
-  
-  cout << spaceBeforeMenu;      
-  for (auto option : *optionsPtr) {
-    cout << spaceBeforeMenuOption 
-         << (functionNum++) + 1 << " - " 
-         << option.description  << endl;
-  } 
-  int previousMenuOption = functionNum+1;
-  int exitOption         = functionNum+2;
-
-  cout << spaceBeforeMenuOption << previousMenuOption 
-                                << " - Previous Menu"      << endl;
-  cout << spaceBeforeMenuOption << exitOption << " - Exit" << endl;
-  
-  
-  // minus 1 for vector selection  
-  int choice = getUserInput<int>("Selection") - 1;
-
-
-  if (choice > exitOption) 
-    cout << "\n\nChoice is out of range";  
-  
-  else if (choice == exitOption)  
-    exit(1); 
-  
-  //else if (choice == previousMenuOption) 
-          
-  else    
-    (*optionsPtr.get()->at(choice).menuFunction.get())();
-  
+Menu::
+~Menu() 
+{
 }
-
-/*shared_ptr<stack<Menu>> Menu::getMenuStackPtr() {
-  return menuStackPtr;
-}*/
-
 
 
 
 
 Menu::MenuFunction::
 MenuFunction(string description, functionPtr menuFunction) : 
-  description{description}, menuFunction{menuFunction} {}
+  description{description}, menuFunction{menuFunction} 
+{
+}
+
+
+
+
+bool Menu::
+displayMenu(int functionNum) 
+{
+  cout << spaceBeforeMenu << "\t" << title << " MENU\n\n";      
+  
+
+  for (auto option : *optionsPtr) 
+  {
+    cout << spaceBeforeMenuOptions 
+         << (functionNum++) + 1 << " - " 
+         << option.description  << endl;
+  } 
+  int previousMenuOption = functionNum+1;
+  int exitOption         = functionNum+2;
+
+
+  cout << spaceBeforeMenuOptions << previousMenuOption << " - Previous Menu" << endl;
+  cout << spaceBeforeMenuOptions << exitOption << " - Exit" << endl;
+  
+  
+  return getMenuSelection(exitOption, previousMenuOption);  
+}
+
+
+
+
+void Menu::
+setTitle(string title) 
+{
+  this->title = title;
+}
+
+
+
+
+
+bool Menu::
+getMenuSelection(const int exitOption, const int previousMenuOption) 
+{   
+  int choice = getUserInput<int>("Selection");
+
+
+  if      (choice > exitOption)  cout << "\n\nChoice is out of range";  
+  else if (choice == exitOption) exit(1);
+  else if (choice == previousMenuOption) return false;       
+  else    (*optionsPtr.get()->at(choice-1).menuFunction.get())();
+
+  
+  return true;
+}
+
+
+
+
+

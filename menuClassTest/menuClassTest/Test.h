@@ -8,34 +8,49 @@ using std::vector;
 using std::make_unique;
 
 
-class Test {
+class Test 
+{
 
-public:
+  public:
   
-  using MenuFunction     = Menu::MenuFunction;
-  using MenuFunctionsVec = vector<MenuFunction>;
+    using MenuFunction     = Menu::MenuFunction;
+    using MenuFunctionsVec = vector<MenuFunction>;
 
-  Test();
-  ~Test();
-  void runMenu();
+    Test();
+    Test(string);
+    Test(const Test&);
+    ~Test();
+    void runMenu();
+    void deleteTest();
 
 
-private:
+  private:
 
-  MenuFunctionsVec MenuOptions{ 
-  
-    {"First option from test class", 
-      make_shared<function<void()>>([this](){
-        this->test1value++; 
-        cout << "\n\tFirst test successfully ran...";})},
+    MenuFunctionsVec MenuOptions
+    {   
+      {"First option from test class", 
+        make_shared<function<void()>>([this](){
+          this->test1value++; 
+          cout << "\n\tFirst test successfully ran...\n\n";        
+        })
+      },
     
-    {"Second option from test class",
-      make_shared<function<void()>>([this](){
-        this->test2value++; 
-        cout << "\n\tSecond test successfully ran...";})}  
-  };
+      {
+        "Second option from test class",
+        make_shared<function<void()>>([this](){
+          this->test2value++; 
+          cout << "\n\tSecond test successfully ran...\n\n";        
+        })
+      },      
+    };
   
-  int test1value{10};
-  int test2value{20};
+
+    string title{};
+    bool   firstRun{true};
+    int    test1value{10};
+    int    test2value{20};
+    
+    //function<void(Test*)> funcPtr{&Test::deleteTest};
+    Menu   menu{make_unique<MenuFunctionsVec>(MenuOptions), title};
 };
 

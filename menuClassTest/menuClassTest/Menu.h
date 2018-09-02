@@ -6,6 +6,7 @@
 #include<string>
 #include<iostream>
 #include<stack>
+#include<algorithm>
 #include"userIO.h"
 
 
@@ -20,39 +21,50 @@ using std::unique_ptr;
 using std::move;
 using std::endl;
 using std::stack;
+using std::transform;
 
 
 
 
 
-class Menu{
+class Menu
+{
 
-public:  
+
+  public:  
   
-  using functionPtr = shared_ptr<function<void()>>;
-  //using menuStack_ptr = shared_ptr<stack<Menu>>;
 
-  static struct MenuFunction {
+    static struct MenuFunction 
+    {
+      using functionPtr = shared_ptr<function<void()>>;
+  
+      MenuFunction(string,functionPtr);
+      string       description;
+      functionPtr  menuFunction;
+    };
     
-    MenuFunction(string,functionPtr);
-    string       description;
-    functionPtr  menuFunction;
-  };
-    
-  using optionsVecPtr = unique_ptr<vector<MenuFunction>>;
+    using optionsVecPtr = unique_ptr<vector<MenuFunction>>;
   
-  Menu();
-  Menu(optionsVecPtr, string="", string="");
-  Menu(optionsVecPtr, shared_ptr<stack<Menu>>, string="", string="");    
-  ~Menu();  
-  
-  void displayMenu(string="",string="");
-  //menuStack_ptr getMenuStackPtr();
 
-private:
+    Menu();
+    Menu(optionsVecPtr, string="", string="\n\n", string="\t");
+    ~Menu();  
   
-  //menuStack_ptr  menuStackPtr;
-  optionsVecPtr  optionsPtr;
+
+    inline bool getMenuSelection(int, int);
+    bool        displayMenu(int=0);
+    void        setTitle(string);
+
+
+
+
+  private:
   
+
+    optionsVecPtr  optionsPtr{};
+    string         title;
+    string         spaceBeforeMenu;
+    string         spaceBeforeMenuOptions;
+
 };
 
