@@ -6,22 +6,11 @@
 #include<string>
 #include<iostream>
 #include<stack>
+#include<fstream>
 #include<algorithm>
 #include"userIO.h"
 
-
-using std::shared_ptr;
-using std::function;
-using std::vector;
-using std::string;
-using std::cout;
-using std::make_shared;
-using std::make_unique;
-using std::unique_ptr;
-using std::move;
-using std::endl;
-using std::stack;
-using std::transform;
+using namespace std;
 
 
 

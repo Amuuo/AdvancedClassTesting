@@ -48,7 +48,6 @@ displayMenu(int functionNum)
 {
   cout << spaceBeforeMenu << "\t" << title << " MENU\n\n";      
   
-
   for (auto option : *optionsPtr) 
   {
     cout << spaceBeforeMenuOptions 
@@ -59,8 +58,9 @@ displayMenu(int functionNum)
   int exitOption         = functionNum+2;
 
 
-  cout << spaceBeforeMenuOptions << previousMenuOption << " - Previous Menu" << endl;
-  cout << spaceBeforeMenuOptions << exitOption << " - Exit" << endl;
+  cout << spaceBeforeMenuOptions << previousMenuOption 
+       << " - Previous Menu" << endl
+       << spaceBeforeMenuOptions << exitOption << " - Exit" << endl;
   
   
   return getMenuSelection(exitOption, previousMenuOption);  

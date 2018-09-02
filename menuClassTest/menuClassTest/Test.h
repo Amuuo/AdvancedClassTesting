@@ -1,12 +1,7 @@
 #pragma once
 #include"Menu.h"
 
-using std::make_shared;
-using std::function;
-using std::cout;
-using std::vector;
-using std::make_unique;
-
+using namespace std;
 
 class Test 
 {
@@ -49,8 +44,8 @@ class Test
     bool   firstRun{true};
     int    test1value{10};
     int    test2value{20};
-    
-    //function<void(Test*)> funcPtr{&Test::deleteTest};
+
+
     Menu   menu{make_unique<MenuFunctionsVec>(MenuOptions), title};
 };
 
